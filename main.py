@@ -20,6 +20,9 @@ class Student:
               f'Курсы в процессе обучения: {courses_in_progress_string}\n' \
               f'Завершенные курсы: {finished_courses_string}'
         return res
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            return self.average_rating < other.average_rating
 
     def rate_hw(self, lecturer, course, grade):
         if isinstance(lecturer,
@@ -53,6 +56,10 @@ class Lecturer(Mentor):
         res = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.average_rating}'
         return res
 
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            return self.average_rating < other.average_rating
+
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -66,8 +73,8 @@ class Reviewer(Mentor):
 
     def __str__(self):
         some_reviewer = f'Имя: {self.name}\nФамилия: {self.surname}'
-
         return some_reviewer
+
 
 
 cool_reviewer_1 = Reviewer('Some', 'Buddy')
